@@ -13,6 +13,9 @@ html,body{
 :root{
     --bg--primary--color:#0c0c0c;
     /* --bg--secondary--color:; */
+    --bg--fill--color:rgb(138, 255, 35);
+
+
     --text--primary--color:#f0f0f0;
 
     --space--xs:4px;
@@ -85,8 +88,8 @@ section .infos{
      /* display: flex;
      flex-wrap: wrap; */
      display: grid;
-     grid-template-columns: repeat(auto-fill,minmax(80px,1fr));
-     grid-template-rows: repeat(auto-fill,minmax(80px,1fr));
+     grid-template-columns: repeat(auto-fill,minmax(50px,1fr));
+     grid-template-rows: repeat(auto-fill,minmax(50px,1fr));
 
      
 }
@@ -97,3 +100,6 @@ section .infos{
     border:1px,solid,var(--border--color);
 }
 
+.fill{
+    background-color: var(--bg--fill--color);
+}
