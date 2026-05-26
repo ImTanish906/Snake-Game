@@ -6,6 +6,8 @@ const blockWidth=50;
 const  cols=Math.floor(board.clientWidth/blockWidth);
 const  rows=Math.floor(board.clientHeight/blockHeight);
 
+const direction= "right";
+
 const blocks=[];
 const snake=[{x:1 , y:3},{x:1 , y:4},{ x:1 , y:5}];
 
@@ -24,9 +26,17 @@ for (let i = 0; i < rows; i++) {
 
 function render(){
     snake.forEach(segment => {
-        console.log(segment);  //for each is used for applying functions to elements of array
+            blocks[`${segment.x}-${segment.y}`].classList.add("fill") ;//for each is used for applying functions to elements of array
     }
 
     )
 }
+
+setInterval(() => {
+    
+
+
+
+    render();
+}, 300); // in settimeout and set interval time is given in ms
 
