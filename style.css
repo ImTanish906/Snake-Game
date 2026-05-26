@@ -15,6 +15,8 @@ html,body{
     /* --bg--secondary--color:; */
     --bg--fill--color:rgb(255, 255, 255);
 
+    --bg--food--color:red;
+
 
     --text--primary--color:#f0f0f0;
 
@@ -102,4 +104,8 @@ section .infos{
 
 .fill{
     background-color: var(--bg--fill--color);
+}
+
+.food{
+    background-color: var(--bg--food--color);
 }

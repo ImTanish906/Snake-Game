@@ -1,5 +1,9 @@
 const board=document.querySelector('.board');
 
+const score=document.querySelector('#score');
+
+score.innerText=0;
+
 const blockHeight=50;
 const blockWidth=50;
 
@@ -12,6 +16,11 @@ let intervalid=null;
 
 const blocks=[];
 const snake=[{x:1 , y:3}];
+
+let food={
+    x:Math.floor(Math.random()*rows),
+    y:Math.floor(Math.random()*cols) //math.random generates a random number between 0 and 1
+}
 
 for (let i = 0; i < rows; i++) {
     for (let j = 0; j < cols; j++) {
@@ -27,16 +36,10 @@ for (let i = 0; i < rows; i++) {
 }
 
 function render(){
-    snake.forEach(segment => {
-            blocks[`${segment.x}-${segment.y}`].classList.add("fill") ;//for each is used for applying functions to elements of array
-    }
-
-    )
-}
-
-intervalid=setInterval(() => {
-
     let head=null;
+    let a =food.x;
+    let b=food.y;
+    blocks[`${a}-${b}`].classList.add("food");
 
     if(direction == "right"){
         head={ x:snake[0].x,y:(snake[0].y)+1};
@@ -63,7 +66,23 @@ intervalid=setInterval(() => {
     snake.unshift(head);
     snake.pop();
 
+    snake.forEach(segment => {
+            blocks[`${segment.x}-${segment.y}`].classList.add("fill") ;//for each is used for applying functions to elements of array
+    }
+)
 
+
+    if(a==head.x && b==head.y){
+        blocks[`${a}-${b}`].classList.remove("food");
+        food.x=Math.floor(Math.random()*rows);
+        food.y=Math.floor(Math.random()*cols);
+        score.innerText++;
+    }
+
+    
+}
+
+intervalid=setInterval(() => {
     render();
 }, 200); // in settimeout and set interval time is given in ms
 
