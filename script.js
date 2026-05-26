@@ -8,6 +8,8 @@ const  rows=Math.floor(board.clientHeight/blockHeight);
 
 let direction= "down";
 
+let intervalid=null;
+
 const blocks=[];
 const snake=[{x:1 , y:3}];
 
@@ -32,7 +34,7 @@ function render(){
     )
 }
 
-setInterval(() => {
+intervalid=setInterval(() => {
 
     let head=null;
 
@@ -49,7 +51,10 @@ setInterval(() => {
          head={ x:snake[0].x+1,y:(snake[0].y)};
     }
 
-
+    if(head.x<0 || head.x>rows || head.y<0 || head.y>cols){
+        alert("game over")
+        clearInterval(intervalid);
+    }
     snake.forEach(segment => {
         blocks[`${segment.x}-${segment.y}`].classList.remove("fill") ;
 
