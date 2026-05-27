@@ -1,7 +1,9 @@
 const board=document.querySelector('.board');
 const startbtn = document.querySelector(".btn-start");
+const highscoredv=document.querySelector("#high-score");
+const timedv=document.querySelector("#time")
 
-const score=document.querySelector('#score');
+const scoredv=document.querySelector('#score');
 const startgame=document.querySelector(".start-game");
 const restartgame=document.querySelector(".game-over");
 
@@ -9,8 +11,17 @@ const restartbutton=document.querySelector(".btn-restart");
 
 
 const modal=document.querySelector('.modal');
+let highscore=localStorage.getItem("highscore")||0;
+scoredv.innerText=0;
+highscoredv.innerText=highscore;
+timedv.innerText="00:00";
 
-score.innerText=0;
+
+
+let score=0;
+
+let time="00:00";
+
 
 const blockHeight=50;
 const blockWidth=50;
@@ -21,6 +32,7 @@ const  rows=Math.floor(board.clientHeight/blockHeight);
 let direction= "down";
 
 let intervalid=null;
+let timerintervalid=null;
 
 const blocks=[];
 let snake=[{x:1 , y:3}];
@@ -53,7 +65,7 @@ function render(){
     let a =food.x;
     let b=food.y;
     // blocks[`${a}-${b}`].classList.add("food");
-    blocks[`${a}-${b}`].innerHTML='<img src="apple2.jpg" style="width:45px; height:45px;"></img>';
+    blocks[`${a}-${b}`].innerHTML='<img src="apple2.jpg" style="width:40px; height:40px;"></img>';
 
     if(direction == "right"){
         head={ x:snake[0].x,y:(snake[0].y)+1};
@@ -102,7 +114,16 @@ function render(){
 
         food.x=Math.floor(Math.random()*rows);
         food.y=Math.floor(Math.random()*cols);
-        score.innerText++;
+        score+=10;
+        scoredv.innerText=score;
+        if (score>highscore) {
+            highscore=score;
+            highscoredv.innerText = highscore;
+
+            localStorage.setItem("highscore",highscore.toString())
+
+            
+        }
 
         snake.unshift(head);
     }
@@ -136,17 +157,35 @@ startbtn.addEventListener("click",(event)=>{
     intervalid=setInterval(() => {
         render()
         
-    }, 200); // in settimeout and set interval time is given in ms
+    }, 200);
+    
+    timerintervalid=setInterval(()=>{
+        let [min,sec]=time.split(":").map(Number);
+
+        if(sec==59){
+            min++;
+            sec=0;
+        }
+        else{
+            sec++;
+        }
+
+        time=`${min}:${sec}`;
+        timedv.innerText=time;
+
+    },1000)// in settimeout and set interval time is given in ms
 })
 
 
 function restartgamefnc(){
-    score.innerText=0;
+    scoredv.innerText=0;
+    score=0;
     modal.style.display="none";
     snake.forEach(segment => {
         blocks[`${segment.x}-${segment.y}`].classList.remove("fill");
         blocks[`${segment.x}-${segment.y}`].classList.remove("headcolor");
     });
+    time="00:00";
 
     blocks[`${food.x}-${food.y}`].innerHTML='';
 
@@ -169,3 +208,4 @@ restartbutton.addEventListener("click",(event)=>{
     restartgamefnc();
 
 })
+
