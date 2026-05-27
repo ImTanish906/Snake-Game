@@ -134,6 +134,17 @@ section .infos{
     display: flex;
     flex-direction: column;
 }
+
+.game-over{
+    
+    padding: 20px;
+    border: 2px solid black ;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    display: none;
+
+}
 .snkgm{
     font-size: 6.4vw;
 }
@@ -172,4 +183,10 @@ section .infos{
     align-items: center;
     height: 7.5vh;
     /* width: 7.5vw; */
+}
+
+.reh3{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

@@ -1,6 +1,14 @@
 const board=document.querySelector('.board');
+const startbtn = document.querySelector(".btn-start");
 
 const score=document.querySelector('#score');
+const startgame=document.querySelector(".start-game");
+const restartgame=document.querySelector(".game-over");
+
+const restartbutton=document.querySelector(".btn-restart");
+
+
+const modal=document.querySelector('.modal');
 
 score.innerText=0;
 
@@ -15,7 +23,7 @@ let direction= "down";
 let intervalid=null;
 
 const blocks=[];
-const snake=[{x:1 , y:3}];
+let snake=[{x:1 , y:3}];
 
 let food={
     x:Math.floor(Math.random()*rows),
@@ -35,13 +43,17 @@ for (let i = 0; i < rows; i++) {
     
 }
 
+function restart(){
+
+}
+
 function render(){
     blocks[`${snake[0].x}-${snake[0].y}`].classList.remove("headcolor")
     let head=null;
     let a =food.x;
     let b=food.y;
     // blocks[`${a}-${b}`].classList.add("food");
-    blocks[`${a}-${b}`].innerHTML='<img src="apple2.jpg" style="width:50px; height:50px;"></img>';
+    blocks[`${a}-${b}`].innerHTML='<img src="apple2.jpg" style="width:45px; height:45px;"></img>';
 
     if(direction == "right"){
         head={ x:snake[0].x,y:(snake[0].y)+1};
@@ -56,10 +68,17 @@ function render(){
          head={ x:snake[0].x+1,y:(snake[0].y)};
     }
 
-    if(head.x<0 || head.x>rows || head.y<0 || head.y>cols){
-        alert("game over")
-        clearInterval(intervalid);
-    }
+    if(head.x < 0 || head.x >= rows || head.y < 0 || head.y >= cols){
+
+    modal.style.display = "flex"; // SHOW MODAL AGAIN
+
+    restartgame.style.display = "flex";
+    startgame.style.display = "none";
+
+    clearInterval(intervalid);
+
+    return;
+}
     snake.forEach(segment => {
         blocks[`${segment.x}-${segment.y}`].classList.remove("fill") ;
 
@@ -91,9 +110,9 @@ function render(){
     
 }
 
-intervalid=setInterval(() => {
-    render();
-}, 200); // in settimeout and set interval time is given in ms
+// intervalid=setInterval(() => {
+//     render();
+// }, 200); 
 
 addEventListener("keydown",(event)=>{
     console.log(event.key);
@@ -109,4 +128,44 @@ addEventListener("keydown",(event)=>{
     else if(event.key=="ArrowLeft"){
         direction="left";
     }
+})
+
+startbtn.addEventListener("click",(event)=>{
+
+    modal.style.display="none";
+    intervalid=setInterval(() => {
+        render()
+        
+    }, 200); // in settimeout and set interval time is given in ms
+})
+
+
+function restartgamefnc(){
+    score.innerText=0;
+    modal.style.display="none";
+    snake.forEach(segment => {
+        blocks[`${segment.x}-${segment.y}`].classList.remove("fill");
+        blocks[`${segment.x}-${segment.y}`].classList.remove("headcolor");
+    });
+
+    blocks[`${food.x}-${food.y}`].innerHTML='';
+
+    direction = "down";
+
+    snake=[{x:1 , y:3}];
+    food={
+    x:Math.floor(Math.random()*rows),
+    y:Math.floor(Math.random()*cols)
+    } //math.random generates a random number between 0 and 1
+    intervalid=setInterval(() => {
+        render()
+        
+    }, 200);
+
+}
+
+
+restartbutton.addEventListener("click",(event)=>{
+    restartgamefnc();
+
 })
