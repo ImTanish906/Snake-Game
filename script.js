@@ -27,7 +27,7 @@ for (let i = 0; i < rows; i++) {
         const block = document.createElement('div');
         block.classList.add("block");
         board.append(block);
-        block.innerText=`${i}-${j}`;
+        // block.innerText=`${i}-${j}`;
         blocks[`${i}-${j}`]=block;
         
         
@@ -36,10 +36,12 @@ for (let i = 0; i < rows; i++) {
 }
 
 function render(){
+    blocks[`${snake[0].x}-${snake[0].y}`].classList.remove("headcolor")
     let head=null;
     let a =food.x;
     let b=food.y;
-    blocks[`${a}-${b}`].classList.add("food");
+    // blocks[`${a}-${b}`].classList.add("food");
+    blocks[`${a}-${b}`].innerHTML='<img src="apple2.jpg" style="width:50px; height:50px;"></img>';
 
     if(direction == "right"){
         head={ x:snake[0].x,y:(snake[0].y)+1};
@@ -64,7 +66,10 @@ function render(){
         
     });
     snake.unshift(head);
+    blocks[`${snake[0].x}-${snake[0].y}`].classList.add("headcolor");
     snake.pop();
+
+    
 
     snake.forEach(segment => {
             blocks[`${segment.x}-${segment.y}`].classList.add("fill") ;//for each is used for applying functions to elements of array
@@ -73,10 +78,14 @@ function render(){
 
 
     if(a==head.x && b==head.y){
-        blocks[`${a}-${b}`].classList.remove("food");
+        // blocks[`${a}-${b}`].classList.remove("food");
+            blocks[`${a}-${b}`].innerHTML='';
+
         food.x=Math.floor(Math.random()*rows);
         food.y=Math.floor(Math.random()*cols);
         score.innerText++;
+
+        snake.unshift(head);
     }
 
     

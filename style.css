@@ -104,8 +104,13 @@ section .infos{
 
 .fill{
     background-color: var(--bg--fill--color);
+    border-radius: 25%;
 }
 
 .food{
     background-color: var(--bg--food--color);
+}
+
+.headcolor{
+    background-color: rgb(0, 247, 255);
 }
