@@ -114,3 +114,62 @@ section .infos{
 .headcolor{
     background-color: rgb(0, 247, 255);
 }
+
+.modal{
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    top: 0;
+    background-color: rgba(118, 100, 100, 0.4);
+    backdrop-filter: blur(5px);
+    display: flex ;
+    justify-content: center;
+    align-items: center;
+}
+
+.start-game{
+    padding: 20px;
+    border: 2px solid black ;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+}
+.snkgm{
+    font-size: 6.4vw;
+}
+/* @media (max-width: 674px) {
+  .snkgm{
+    font-size: 10vw;
+}
+} */
+
+.btn{
+    width: 50vw;
+    height: 7.5vh;
+    border-radius: 5%;
+    /* Removes default raised border */
+  border: none; 
+  /* Removes default outlines when clicked */
+  outline: none; 
+  /* Removes browser-specific 3D shadowing */
+  box-shadow: none; 
+  /* Prevents the button from translating down when clicked */
+  transform: none;
+    background-color: rgba(118, 100, 100, 0.4);
+    backdrop-filter: blur(6px);
+    color: aqua;
+    font-size: 150%;
+}
+.btn:hover{
+    background-color: antiquewhite;
+    color: black;
+    transition: 0.5s;
+}
+
+.btndiv{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 7.5vh;
+    /* width: 7.5vw; */
+}
